@@ -1,0 +1,20 @@
+{
+  "name": "mega-mock",
+  "version": "0.1.0",
+  "description": "mega-mock mocks MEGA API servers",
+  "main": "index.js",
+  "bin": "./cli/index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "author": "qgustavor (https://qgustavor.tk)",
+  "license": "MIT",
+  "repository": "github:qgustavor/mega-mock",
+  "dependencies": {
+    "micro": "^9.3.3",
+    "micro-visualize": "^3.0.1"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}
