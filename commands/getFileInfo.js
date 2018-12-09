@@ -5,8 +5,8 @@ function getFileInfo (data, options, parsedURL, req) {
 
   if (data.n) {
     // Got file handler
-    for (let user of options.state.users) {
-      file = user.files.find(e => e.h === data.n)
+    for (let [uh, userData] of options.state.users) {
+      file = userData.files.find(e => e.h === data.n)
       if (file) break
     }
   } else if (data.p) {
