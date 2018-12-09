@@ -63,7 +63,7 @@ function createServer (options = {}) {
 function normalizeOptions (options) {
   if (!options.state) options.state = {}
   if (!options.dataFolder) throw Error('dataFolder should be defined')
-  if (!options.generateId) options.generateId = generateIdCounter
+  if (!options.generateId) options.generateId = generateIdCounter(options.state)
 
   const state = options.state
   const keys = ['users', 'shares', 'uploadStates', 'loginData']

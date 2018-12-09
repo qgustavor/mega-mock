@@ -1,8 +1,42 @@
-let counter = 0
-function generateIdCounter () {
-  const buffer = Buffer.alloc(6)
-  buffer.writeUIntBE(counter++, 0, 6)
-  return buffer.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
+function generateIdCounter (state) {
+  if (state.idCounter == null) state.idCounter = 0
+
+  return function () {
+    const buffer = Buffer.alloc(5)
+    buffer.writeUIntBE(state.idCounter, 0, 5)
+    state.idCounter++
+
+    return base32(buffer)
+  }
+}
+
+// It uses base32 to generate IDs as Windows file system is not case sensitive
+function base32 (plain) {
+  const charTable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
+  let shiftIndex = 0
+  let digit = 0
+  let encoded = ''
+
+  for (let i = 0; i < plain.length;) {
+    let current = plain[i]
+
+    if (shiftIndex > 3) {
+      digit = current & (0xff >> shiftIndex)
+      shiftIndex = (shiftIndex + 5) % 8
+      digit = (digit << shiftIndex) | (
+        (i + 1 < plain.length) ? plain[i + 1] : 0
+      ) >> (8 - shiftIndex)
+      i++
+    } else {
+      digit = (current >> (8 - (shiftIndex + 5))) & 0x1f
+      shiftIndex = (shiftIndex + 5) % 8
+      if (shiftIndex === 0) i++
+    }
+
+    encoded += charTable[digit]
+  }
+
+  return encoded
 }
 
 exports.generateIdCounter = generateIdCounter
