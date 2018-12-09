@@ -4,7 +4,7 @@ const fs = require('fs')
 async function handleUpload (options, parsedURL, req, res) {
   if (typeof options.simulateUploadError === 'function') {
     const error = options.simulateUploadError(parsedURL, req, res)
-    if (error) return error
+    if (error) throw error
   }
 
   const [uploadId, size, firstByte] = parsedURL.pathname.split('/').slice(2)

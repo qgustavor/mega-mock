@@ -5,7 +5,7 @@ const fs = require('fs')
 async function handleDownload (options, parsedURL, req, res) {
   if (typeof options.simulateDownloadError === 'function') {
     const error = options.simulateDownloadError(parsedURL, req, res)
-    if (error) return error
+    if (error) throw error
   }
 
   const [handler, range = ''] = parsedURL.pathname.split('/').slice(2)
