@@ -11,8 +11,7 @@
   "license": "MIT",
   "repository": "github:qgustavor/mega-mock",
   "dependencies": {
-    "micro": "^9.3.3",
-    "micro-visualize": "^3.0.1"
+    "micro": "^9.3.3"
   },
   "devDependencies": {
     "standard": "^12.0.1"

@@ -1,4 +1,3 @@
-const visualize = require('micro-visualize')
 const micro = require('micro')
 const url = require('url')
 
@@ -48,10 +47,6 @@ function createServer (options = {}) {
     }
 
     micro.send(res, 400, 'Unknown method')
-  }
-
-  if (options.visualize !== false) {
-    handler = visualize(handler)
   }
 
   const server = micro(handler)
