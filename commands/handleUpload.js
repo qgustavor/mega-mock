@@ -9,9 +9,10 @@ async function handleUpload (options, parsedURL, req, res) {
 
   const [uploadId, size, firstByte] = parsedURL.pathname.split('/').slice(2)
   const targetPath = path.resolve(options.dataFolder, 'temp_' + uploadId)
+  const sizeNum = Number(size)
 
   const chunkSize = Number(req.headers['content-length'])
-  if (!chunkSize) throw Error('content-length required')
+  if (!chunkSize && sizeNum) throw Error('content-length required')
 
   if (!fs.existsSync(targetPath)) fs.writeFileSync(targetPath, Buffer.alloc(0))
 
@@ -48,7 +49,7 @@ async function handleUpload (options, parsedURL, req, res) {
     }
   }
 
-  const gotEnd = uploadState.length === 1 && uploadState[0][0] === 0 && uploadState[0][1] === Number(size)
+  const gotEnd = uploadState.length === 1 && uploadState[0][0] === 0 && uploadState[0][1] === sizeNum
   if (gotEnd) {
     uploadStates.delete(uploadId)
     return Buffer.from(uploadId, 'base64')
