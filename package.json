@@ -1,6 +1,6 @@
 {
   "name": "mega-mock",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "mega-mock mocks MEGA API servers",
   "main": "index.js",
   "bin": "./cli/index.js",
