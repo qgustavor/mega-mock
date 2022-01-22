@@ -36,7 +36,6 @@ const megamock = require('mega-mock')
 
 const server = megamock({
   dataFolder: 'path to the data folder', // required
-  visualize: true, // set to false to disable logging requests to console
   state: {} // initial server state
 })
 

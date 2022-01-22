@@ -13,7 +13,8 @@ const commands = {
   ug: require('./commands/confirmLogin'),
   uq: require('./commands/getAccountInfo'),
   us: require('./commands/handleLogin'),
-  us0: require('./commands/preLoginRequest')
+  us0: require('./commands/preLoginRequest'),
+  sml: require('./commands/logout')
 }
 
 const handleUpload = require('./commands/handleUpload')
