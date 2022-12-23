@@ -16,6 +16,12 @@ async function handleUpload (options, parsedURL, req, res) {
 
   if (!fs.existsSync(targetPath)) fs.writeFileSync(targetPath, Buffer.alloc(0))
 
+  const uploadStates = options.state.uploadStates
+  if (sizeNum === 0) {
+    uploadStates.delete(uploadId)
+    return Buffer.from(uploadId, 'base64')
+  }
+
   const start = Number(firstByte)
   const writeStream = fs.createWriteStream(targetPath, {
     flags: 'r+',
@@ -29,7 +35,6 @@ async function handleUpload (options, parsedURL, req, res) {
     req.on('error', reject)
   })
 
-  const uploadStates = options.state.uploadStates
   let uploadState = uploadStates.get(uploadId)
   if (!uploadState) {
     uploadState = []
